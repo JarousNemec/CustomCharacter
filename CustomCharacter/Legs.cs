@@ -10,8 +10,8 @@ namespace CustomCharacter
         }
 
         private PointF center;
-        private float angleL = 45.0f;
-        private float angleR = 45.0f;
+        private float angleL = 180;
+        private float angleR = 0;
         public override void Draw(Graphics g, Pen _pen)
         {
             if (LineWidth < 25)
@@ -29,13 +29,16 @@ namespace CustomCharacter
                 {
                     GraphicsContainer container = g.BeginContainer();
                     
-                    center = new PointF(X + 15, Y + Height / 2);
-                    
+                    center = new PointF(X, Y);
                     rotate.RotateAt(angleL, center);
+                    g.DrawEllipse(new Pen(Color.Blue, 3), X, Y, 250, 40);
+                    g.EndContainer(container);
+                    container = g.BeginContainer();
                     
+                    rotate.RotateAt(angleR, center);
                     g.Transform = rotate;
                     
-                    g.DrawEllipse(new Pen(Color.Blue, 3), 0, 0, 200, 80);
+                    g.DrawEllipse(new Pen(Color.Blue, 3), X, Y, 250, 40);
                     
                     g.EndContainer(container);
                 }
