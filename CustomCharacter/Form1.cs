@@ -27,11 +27,14 @@ namespace CustomCharacter
             Head head = new Head(150, 50, 50, 50);
             _numHeadSize.Value = (decimal)head.Width;
             var neckPos = head.GetNeckPosition();
-            Body body = new Body(neckPos.X, neckPos.Y, 3, 100);
+            Body body = new Body(neckPos.X, neckPos.Y, 26, 100);
             _numBodySize.Value = (decimal)body.Width;
             Extremities hands = new Extremities(neckPos.X, neckPos.Y, 80, 20, 3);
             Legs legs = new Legs(neckPos.X, neckPos.Y + body.Height, 80, 50, 3);
             _character = new Character(head, body, hands, legs);
+            _character.Body.Width = (float)_numBodySize.Value;
+            _character.Legs.LineWidth = (float)_numBodySize.Value;
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -59,6 +62,8 @@ namespace CustomCharacter
 
         private void _numBodySize_ValueChanged(object sender, EventArgs e)
         {
+            if (_character == null)
+                return;
             _character.Body.Width = (float)_numBodySize.Value;
             _character.Legs.LineWidth = (float)_numBodySize.Value;
             Invalidate();
